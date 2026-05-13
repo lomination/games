@@ -1,4 +1,4 @@
-package lomination.games.gameRules.checkers
+package lomination.games.gameRules.tictactoe
 
 import lomination.games.core.shared.Turn
 
