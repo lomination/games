@@ -34,8 +34,8 @@ enum Score extends Ordered[Score]:
     case Loose       => Win
     case Heuristic(s) => Heuristic(-s)
 
-object Score {
-  given Conversion[Int, Score] with {
-    def apply(n: Int): Score = Score.Heuristic(n)
-  }
-}
+// object Score {
+//   given Conversion[Int, Score] with {
+//     def apply(n: Int): Score = Score.Heuristic(n)
+//   }
+// }

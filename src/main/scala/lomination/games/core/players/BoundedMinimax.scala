@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Evaluatable, Hash, ZeroSumGame}
-import lomination.games.core.shared.{Move, Outcome, Score}
+import lomination.games.core.shared.{Move, Outcome, Score, choose}
 
 case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
     depth: Int
@@ -24,24 +24,25 @@ case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
       depth: Int
   ): (Map[Hash, Score], Score) =
     val hash = game.eqHash
-    cache.get(hash) match
-      case Some(score) => (cache, score)
-      case None        =>
-        game.winner match
-          case Outcome.Win(t) if t == game.turn =>
-            (cache + (hash -> Score.Win), Score.Win)
-          case Outcome.Win(_)  => (cache + (hash -> Score.Loose), Score.Loose)
-          case Outcome.Draw    => (cache + (hash -> Score.Draw), Score.Draw)
-          case _ if depth == 0 =>
-            val s = game.score
-            (cache + (hash -> s), s)
-          case _ =>
-            val (finalCache, scores) =
-              game.legalMoves.foldLeft((cache, Seq.empty[Score])) {
-                case ((c, acc), move) =>
-                  val (newCache, childScore) =
-                    evaluate(game.move(move).get, c, depth - 1)
-                  (newCache, acc :+ -childScore)
-              }
-            val bestScore = scores.max
-            (finalCache + (hash -> bestScore), bestScore)
+    if cache.contains(hash) then
+      val score = cache(hash)
+      (cache, score)
+    else
+      game.winner match
+        case Outcome.Win(t) if t == game.turn =>
+          (cache + (hash -> Score.Win), Score.Win)
+        case Outcome.Win(_)  => (cache + (hash -> Score.Loose), Score.Loose)
+        case Outcome.Draw    => (cache + (hash -> Score.Draw), Score.Draw)
+        case _ if depth == 0 =>
+          val s = game.score
+          (cache + (hash -> s), s)
+        case _ =>
+          val (finalCache, scores) =
+            game.legalMoves.foldLeft((cache, Seq.empty[Score])) {
+              case ((c, acc), move) =>
+                val (newCache, childScore) =
+                  evaluate(game.move(move).get, c, depth - 1)
+                (newCache, acc :+ -childScore)
+            }
+          val bestScore = scores.max
+          (finalCache + (hash -> bestScore), bestScore)
