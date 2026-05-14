@@ -7,7 +7,7 @@ The goal is to implement generic decision algorithms on various board games.
 1. Basic zero sum games (tic tac toe, connect four), with minimax
 2. Optimization for minimax: alphabeta
 3. Improve console interface to select move
-4. Checkers
+4. Checkers, Reversi
 5. Variation on checkers (flying king, variation of board's dimmensions)
 6. Chess (with bounded depth)
 7. Random zero sum games solving algorithm: expectiminimax
