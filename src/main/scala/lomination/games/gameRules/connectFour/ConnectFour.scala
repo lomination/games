@@ -76,21 +76,19 @@ case class ConnectFour(
   override def eqStates: Seq[ConnectFour] =
     Seq(this, ConnectFour(turn, board.reverse))
 
-  def display: Unit =
-    println(
-      s"Current turn: ${turn}\n" ++ (0 to 5)
-        .map(i =>
-          "|" ++ board
-            .map(c =>
-              c(i) match
-                case Cell.Full(Turn.P1) => "⭕"
-                case Cell.Full(Turn.P2) => "❌"
-                case _                  => "  "
-            )
-            .mkString("|") ++ "|\n"
-        )
-        .mkString
-    )
+  def display: String =
+    s"Current turn: ${turn}\n" ++ (0 to 5)
+      .map(i =>
+        "|" ++ board
+          .map(c =>
+            c(i) match
+              case Cell.Full(Turn.P1) => "⭕"
+              case Cell.Full(Turn.P2) => "❌"
+              case _                  => "  "
+          )
+          .mkString("|") ++ "|\n"
+      )
+      .mkString
 
   def score: Score =
     Score.Heuristic(

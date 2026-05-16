@@ -24,14 +24,14 @@ enum Score extends Ordered[Score]:
     case (_, Loose)     => 1
 
     case (Heuristic(s1), Heuristic(s2)) => s1.compare(s2)
-    case (Heuristic(s), Draw)          => s
-    case (Draw, Heuristic(s))          => -s
-    case (Draw, Draw)                 => 0
+    case (Heuristic(s), Draw)           => s
+    case (Draw, Heuristic(s))           => -s
+    case (Draw, Draw)                   => 0
 
   def unary_- : Score = this match
-    case Win         => Loose
-    case Draw        => Draw
-    case Loose       => Win
+    case Win          => Loose
+    case Draw         => Draw
+    case Loose        => Win
     case Heuristic(s) => Heuristic(-s)
 
 // object Score {

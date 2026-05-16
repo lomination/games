@@ -1,13 +1,14 @@
 package lomination.games.gameRules.tictactoe
 
-import lomination.games.core.gameTypes.{Displayable, ZeroSumGame}
-import lomination.games.core.shared.{Outcome, Turn}
+import lomination.games.core.gameTypes.{Displayable, Evaluatable, ZeroSumGame}
+import lomination.games.core.shared.{Outcome, Score, Turn}
 
 case class TicTacToe(
     val turn: Turn = Turn.P1,
     val board: Board = IndexedSeq.fill(3)(IndexedSeq.fill(3)(Cell.Empty))
 ) extends ZeroSumGame[TicTacToe, Move],
-      Displayable:
+      Displayable,
+      Evaluatable:
 
   def isLegal(move: Move): Boolean =
     board(move.r)(move.c) == Cell.Empty
@@ -71,14 +72,14 @@ case class TicTacToe(
     ).distinct
       .map(b => TicTacToe(turn, b))
 
-  def display: Unit =
-    println(
-      s"Current turn: ${turn}\n" ++ board
-        .map(_.map {
-          case Cell.Full(Turn.P1) => "⭕"
-          case Cell.Full(Turn.P2) => "❌"
-          case _                  => "  "
-        }.mkString("|"))
-        .mkString("\n--+--+--\n")
-        .appended('\n')
-    )
+  def display: String =
+    s"Current turn: ${turn}\n" ++ board
+      .map(_.map {
+        case Cell.Full(Turn.P1) => "⭕"
+        case Cell.Full(Turn.P2) => "❌"
+        case _                  => "  "
+      }.mkString("|"))
+      .mkString("\n--+--+--\n")
+      .appended('\n')
+
+  def score: Score = Score.Heuristic(0)

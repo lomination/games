@@ -2,4 +2,4 @@ package lomination.games.core.gameTypes
 
 trait Displayable:
 
-  def display: Unit
+  def display: String

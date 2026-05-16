@@ -12,4 +12,4 @@ trait Player[G <: ZeroSumGame[G, M], M <: Move]:
     * @param game
     * @return
     */
-  def getMove(game: G): Option[M]
+  def getMove(game: G): Input[M]

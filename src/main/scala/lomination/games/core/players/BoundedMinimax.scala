@@ -7,7 +7,7 @@ case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
     depth: Int
 ) extends Player[G, M]:
 
-  def getMove(game: G): Option[M] =
+  def getMove(game: G): Input[M] =
     val scores = game.legalMoves
       .foldLeft[(Map[Hash, Score], Map[M, Score])]((Map.empty, Map.empty)) {
         case ((cache, acc), m) =>
@@ -16,7 +16,9 @@ case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
       }
       ._2
     val maxScore = scores.values.max
-    Some(scores.collect { case (m, s) if s == maxScore => m }.toSeq.choose)
+    Input.Move(
+      scores.collect { case (m, s) if s == maxScore => m }.toSeq.choose
+    )
 
   private def evaluate(
       game: G,
