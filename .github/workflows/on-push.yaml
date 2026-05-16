@@ -1,0 +1,20 @@
+name: On push
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build and test
+    uses: ./.github/workflows/build.yaml
+
+  check-format:
+    name: Check format
+    needs: build
+    uses: ./.github/workflows/check-format.yaml
+  
+  # coverage:
+  #   name: Coverage
+  #   needs: build
+  #   secrets: inherit
+  #   uses: ./.github/workflows/coverage.yaml

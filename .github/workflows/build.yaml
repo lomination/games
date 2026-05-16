@@ -1,0 +1,22 @@
+name: Build and test
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Setup scala
+        uses: coursier/setup-action@v3
+        with:
+          jvm: temurin:1.21
+          apps: sbt
+      - name: Run tests
+        shell: bash
+        run: sbt test
