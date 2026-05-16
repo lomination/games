@@ -1,0 +1,24 @@
+name: Check format
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  check-format:
+    name: Check format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Setup scala
+        uses: coursier/setup-action@v3
+        with:
+          jvm: temurin:1.21
+          apps: sbt
+      - name: Check formatting (scalafmt)
+        shell: bash
+        run: sbt scalafmtCheckAll
+      - name: Check refactoring (scalafix)
+        shell: bash
+        run: sbt "scalafix --check"
