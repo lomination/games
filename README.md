@@ -60,3 +60,11 @@ After that, you should be able to run the project with:
 ```bash
 sbt run
 ```
+
+## Contribution
+
+Please feel free to contribute to this project by reporting bugs through the GitHub issues or by creating pull requests.
+
+## Licensing
+
+This project is licensed under the GPL-3.0 license.
