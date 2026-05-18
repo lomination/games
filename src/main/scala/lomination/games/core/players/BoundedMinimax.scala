@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Evaluatable, Hash, ZeroSumGame}
-import lomination.games.core.shared.{Quit, Move, Outcome, Score, choose}
+import lomination.games.core.shared.{Move, Outcome, Quit, Score, choose}
 
 case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
     depth: Int

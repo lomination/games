@@ -1,8 +1,8 @@
 package lomination.games.core.engines
 
 import lomination.games.core.gameTypes.{Displayable, ZeroSumGame}
-import lomination.games.core.players.{ Player}
-import lomination.games.core.shared.{Quit, Move, Outcome, Turn}
+import lomination.games.core.players.Player
+import lomination.games.core.shared.{Move, Outcome, Quit, Turn}
 
 object ConsoleGameEngine:
 

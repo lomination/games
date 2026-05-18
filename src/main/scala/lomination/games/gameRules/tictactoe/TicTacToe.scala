@@ -1,6 +1,11 @@
 package lomination.games.gameRules.tictactoe
 
-import lomination.games.core.gameTypes.{Displayable, Evaluatable, ZeroSumGame, JLineGame}
+import lomination.games.core.gameTypes.{
+  Displayable,
+  Evaluatable,
+  JLineGame,
+  ZeroSumGame
+}
 import lomination.games.core.shared.{Outcome, Score, Turn}
 
 case class TicTacToe(
@@ -87,11 +92,11 @@ case class TicTacToe(
 
 // JLineGame implementation
 
-  private inline def clamp(cursorPos: Int) : Int =
+  private inline def clamp(cursorPos: Int): Int =
     if cursorPos < 0 then 0
     else if cursorPos > 2 then 2
     else cursorPos
-  
+
   def defaultCursorPos: (Int, Int) = (1, 1)
 
   def onArrowUpPressed(ch: Int, cw: Int): (Int, Int) =

@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Hash, ZeroSumGame}
-import lomination.games.core.shared.{Move, Quit, Outcome, choose}
+import lomination.games.core.shared.{Move, Outcome, Quit, choose}
 
 // Since this implementation is meant to traverse
 // the whole tree, no complex score is needed. Integer

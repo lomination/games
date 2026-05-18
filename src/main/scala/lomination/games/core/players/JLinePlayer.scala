@@ -1,10 +1,10 @@
 package lomination.games.core.players
 
-import org.jline.terminal.{Terminal}
-import org.jline.keymap.BindingReader
-
-import lomination.games.core.shared.{Move, Quit}
 import lomination.games.core.gameTypes.ZeroSumGame
+import lomination.games.core.shared.{Move, Quit}
+import org.jline.keymap.BindingReader
+import org.jline.terminal.Terminal
+
 import java.io.PrintWriter
 
 trait JLinePlayer[G <: ZeroSumGame[G, M], M <: Move]:

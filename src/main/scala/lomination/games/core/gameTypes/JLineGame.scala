@@ -17,4 +17,3 @@ trait JLineGame[M <: Move]:
   def coordsToMove(ch: Int, cw: Int): M
 
   def displayWithCursor(ch: Int, cw: Int): String
-

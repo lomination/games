@@ -1,17 +1,12 @@
 package lomination.games.core.engines
 
-
-import org.jline.terminal.{Terminal, TerminalBuilder}
-import org.jline.keymap.BindingReader
-
-
+import lomination.games.core.gameTypes.{Displayable, JLineGame, ZeroSumGame}
 import lomination.games.core.players.JLinePlayer
-import lomination.games.core.shared.{Move, Quit, Turn}
-import lomination.games.core.gameTypes.ZeroSumGame
-import lomination.games.core.gameTypes.JLineGame
-import lomination.games.core.shared.Outcome
+import lomination.games.core.shared.{Move, Outcome, Quit, Turn}
+import org.jline.keymap.BindingReader
+import org.jline.terminal.{Terminal, TerminalBuilder}
+
 import scala.annotation.tailrec
-import lomination.games.core.gameTypes.Displayable
 
 object JLineConsoleGameEngine:
 

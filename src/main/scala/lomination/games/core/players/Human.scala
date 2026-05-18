@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.ZeroSumGame
-import lomination.games.core.shared.{Quit, Move}
+import lomination.games.core.shared.{Move, Quit}
 
 import scala.annotation.tailrec
 
