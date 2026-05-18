@@ -1,9 +1,13 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.ZeroSumGame
-import lomination.games.core.shared.Move
+import lomination.games.core.shared.{Move, Quit}
+import org.jline.keymap.BindingReader
+import java.io.PrintWriter
+import org.jline.terminal.Terminal
+import scala.annotation.unused
 
-trait Player[G <: ZeroSumGame[G, M], M <: Move]:
+trait Player[G <: ZeroSumGame[G, M], M <: Move] extends JLinePlayer[G, M]:
 
   /** Note: this function assumes that there is at least one possible move in
     * the current state of the game, i.e. `game.legalMoves` should return a
@@ -12,4 +16,11 @@ trait Player[G <: ZeroSumGame[G, M], M <: Move]:
     * @param game
     * @return
     */
-  def getMove(game: G): Input[M]
+  def getMove(game: G): Either[M, Quit.type]
+
+  def getMove(
+      game: G,
+      @unused terminal: Terminal,
+      @unused reader: BindingReader,
+      @unused writer: PrintWriter
+  ): Either[M, Quit.type] = getMove(game)

@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Evaluatable, ZeroSumGame}
-import lomination.games.core.shared.{Move, Outcome, Score, choose}
+import lomination.games.core.shared.{Move, Outcome, Quit, Score, choose}
 
 import scala.annotation.tailrec
 
@@ -12,7 +12,7 @@ case class AlphaBeta[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
     depth: Int
 ) extends Player[G, M]:
 
-  def getMove(game: G): Input[M] =
+  def getMove(game: G): Either[M, Quit.type] =
     val scoredMoves = game.legalMoves.map { m =>
       val score =
         -alphaBeta(game.move(m).get, depth - 1, Score.Loose, Score.Win)
@@ -21,7 +21,7 @@ case class AlphaBeta[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
 
     val maxScore  = scoredMoves.map(_._2).max
     val bestMoves = scoredMoves.collect { case (m, s) if s == maxScore => m }
-    Input.Move(bestMoves.choose)
+    Left(bestMoves.choose)
 
   /** Classic Negamax Alpha-Beta
     * @param alpha

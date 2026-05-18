@@ -1,7 +1,7 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Hash, ZeroSumGame}
-import lomination.games.core.shared.{Move, Outcome, choose}
+import lomination.games.core.shared.{Move, Quit, Outcome, choose}
 
 // Since this implementation is meant to traverse
 // the whole tree, no complex score is needed. Integer
@@ -11,7 +11,7 @@ private type Score = Int
 
 case class Minimax[G <: ZeroSumGame[G, M], M <: Move]() extends Player[G, M]:
 
-  def getMove(game: G): Input[M] =
+  def getMove(game: G): Either[M, Quit.type] =
     val scores = game.legalMoves
       .foldLeft[(Map[Hash, Score], Map[M, Score])]((Map.empty, Map.empty)) {
         case ((cache, acc), m) =>
@@ -20,7 +20,7 @@ case class Minimax[G <: ZeroSumGame[G, M], M <: Move]() extends Player[G, M]:
       }
       ._2
     val maxScore = scores.values.max
-    Input.Move(
+    Left(
       scores.collect { case (m, s) if s == maxScore => m }.toSeq.choose
     )
 

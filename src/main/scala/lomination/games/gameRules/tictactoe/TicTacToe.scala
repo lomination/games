@@ -1,6 +1,6 @@
 package lomination.games.gameRules.tictactoe
 
-import lomination.games.core.gameTypes.{Displayable, Evaluatable, ZeroSumGame}
+import lomination.games.core.gameTypes.{Displayable, Evaluatable, ZeroSumGame, JLineGame}
 import lomination.games.core.shared.{Outcome, Score, Turn}
 
 case class TicTacToe(
@@ -8,7 +8,8 @@ case class TicTacToe(
     val board: Board = IndexedSeq.fill(3)(IndexedSeq.fill(3)(Cell.Empty))
 ) extends ZeroSumGame[TicTacToe, Move],
       Displayable,
-      Evaluatable:
+      Evaluatable,
+      JLineGame[Move]:
 
   def isLegal(move: Move): Boolean =
     board(move.r)(move.c) == Cell.Empty
@@ -83,3 +84,46 @@ case class TicTacToe(
       .appended('\n')
 
   def score: Score = Score.Heuristic(0)
+
+// JLineGame implementation
+
+  private inline def clamp(cursorPos: Int) : Int =
+    if cursorPos < 0 then 0
+    else if cursorPos > 2 then 2
+    else cursorPos
+  
+  def defaultCursorPos: (Int, Int) = (1, 1)
+
+  def onArrowUpPressed(ch: Int, cw: Int): (Int, Int) =
+    (clamp(ch - 1), cw)
+
+  def onArrowDownPressed(ch: Int, cw: Int): (Int, Int) =
+    (clamp(ch + 1), cw)
+
+  def onArrowRightPressed(ch: Int, cw: Int): (Int, Int) =
+    (ch, clamp(cw + 1))
+
+  def onArrowLeftPressed(ch: Int, cw: Int): (Int, Int) =
+    (ch, clamp(cw - 1))
+
+  def coordsToMove(ch: Int, cw: Int): Move =
+    Move(ch.asInstanceOf[Coord], cw.asInstanceOf[Coord])
+
+  def displayWithCursor(ch: Int, cw: Int): String =
+    val strBuilder = StringBuilder()
+    strBuilder.append(s"Current turn: ${this.turn}\n")
+    for h <- 0 until 3 do
+      for w <- 0 until 3 do
+        val cellStr = board(h)(w) match
+          case Cell.Full(Turn.P1) => "⭕"
+          case Cell.Full(Turn.P2) => "❌"
+          case _                  => "  "
+        if h == ch && w == cw then
+          strBuilder.append(s"\u001b[46m$cellStr\u001b[0m")
+        else strBuilder.append(cellStr)
+        if w == 3 - 1 then
+          if h != 3 - 1 then strBuilder.append("\n--+--+--\n")
+          else strBuilder.append("\n")
+        else strBuilder.append("|")
+    strBuilder.append("\n")
+    strBuilder.toString()

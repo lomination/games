@@ -1,13 +1,13 @@
 package lomination.games.core.players
 
 import lomination.games.core.gameTypes.{Evaluatable, Hash, ZeroSumGame}
-import lomination.games.core.shared.{Move, Outcome, Score, choose}
+import lomination.games.core.shared.{Quit, Move, Outcome, Score, choose}
 
 case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
     depth: Int
 ) extends Player[G, M]:
 
-  def getMove(game: G): Input[M] =
+  def getMove(game: G): Either[M, Quit.type] =
     val scores = game.legalMoves
       .foldLeft[(Map[Hash, Score], Map[M, Score])]((Map.empty, Map.empty)) {
         case ((cache, acc), m) =>
@@ -16,7 +16,7 @@ case class BoundedMinimax[G <: ZeroSumGame[G, M] & Evaluatable, M <: Move](
       }
       ._2
     val maxScore = scores.values.max
-    Input.Move(
+    Left(
       scores.collect { case (m, s) if s == maxScore => m }.toSeq.choose
     )
 

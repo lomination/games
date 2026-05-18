@@ -1,8 +1,8 @@
-package lomination.games.core
+package lomination.games.core.engines
 
 import lomination.games.core.gameTypes.{Displayable, ZeroSumGame}
-import lomination.games.core.players.{Input, Player}
-import lomination.games.core.shared.{Move, Outcome, Turn}
+import lomination.games.core.players.{ Player}
+import lomination.games.core.shared.{Quit, Move, Outcome, Turn}
 
 object ConsoleGameEngine:
 
@@ -24,16 +24,16 @@ object ConsoleGameEngine:
           val curr = currPlayer(game, p1, p2)
           val move = curr.getMove(game)
           move match
-            case Input.Move(m) if !game.isLegal(m) =>
+            case Left(m) if !game.isLegal(m) =>
               throw new IllegalArgumentException(
                 s"Player ${game.turn} (${currPlayer(game, p1, p2)}) gave move $m which is illegal in current game state.\n" ++
                   "Current game state:\n" ++
                   game.display
               )
-            case Input.Move(m) =>
+            case Left(m) =>
               val newGame = game.move(m).get
               run(newGame, p1, p2)
-            case Input.Quit => Outcome.Win(game.turn.switch)
+            case Right(Quit) => Outcome.Win(game.turn.switch)
       case outcome =>
         game.display
         outcome
