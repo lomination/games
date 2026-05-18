@@ -2,10 +2,12 @@ package lomination.games.core.players
 
 import lomination.games.core.gameTypes.ZeroSumGame
 import lomination.games.core.shared.{Move, Quit}
+
 import org.jline.keymap.BindingReader
 import org.jline.terminal.Terminal
 
 import java.io.PrintWriter
+
 import scala.annotation.unused
 
 trait Player[G <: ZeroSumGame[G, M], M <: Move] extends JLinePlayer[G, M]:

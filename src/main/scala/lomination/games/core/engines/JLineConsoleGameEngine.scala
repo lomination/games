@@ -3,6 +3,7 @@ package lomination.games.core.engines
 import lomination.games.core.gameTypes.{Displayable, JLineGame, ZeroSumGame}
 import lomination.games.core.players.JLinePlayer
 import lomination.games.core.shared.{Move, Outcome, Quit, Turn}
+
 import org.jline.keymap.BindingReader
 import org.jline.terminal.{Terminal, TerminalBuilder}
 

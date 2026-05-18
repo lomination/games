@@ -3,11 +3,13 @@ package lomination.games.gameRules.tictactoe
 import lomination.games.core.gameTypes.{JLineGame, ZeroSumGame}
 import lomination.games.core.players.JLinePlayer
 import lomination.games.core.shared.{Move, Quit}
+
 import org.jline.keymap.{BindingReader, KeyMap}
 import org.jline.terminal.Terminal
 import org.jline.utils.InfoCmp.Capability
 
 import java.io.PrintWriter
+
 import scala.annotation.tailrec
 
 private enum Event:
