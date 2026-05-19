@@ -7,6 +7,16 @@ lazy val root = project
     version := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
 
+    assembly / mainClass := Some("lomination.games.main"),
+    assembly / assemblyJarName := "lomination.games",
+    assembly / assemblyMergeStrategy := {
+      case PathList("META-INF", "versions", _, "module-info.class") => MergeStrategy.discard
+      case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.first
+      case x =>
+        val oldStrategy = (assembly / assemblyMergeStrategy).value
+        oldStrategy(x)
+    },
+
     // semanticdbEnabled := true,
     // semanticdbVersion := scalafixSemanticdb.revision,
 
