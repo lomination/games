@@ -2,11 +2,11 @@ A small project to learn more about game theory and decision taking algorithms.
 
 The goal is to implement generic decision algorithms on various board games.
 
-## Features Plan
+# Features Plan
 
-1. Basic zero sum games (tic tac toe, connect four), with minimax
-2. Optimization for minimax: alphabeta
-3. Improve console interface to select move
+1. ~~Basic zero sum games (tic tac toe, connect four), with minimax~~
+2. ~~Optimization for minimax: alphabeta~~
+3. ~~Improve console interface to select move~~
 4. Checkers, Reversi
 5. Variation on checkers (flying king, variation of board's dimmensions)
 6. Chess (with bounded depth)
@@ -15,9 +15,21 @@ The goal is to implement generic decision algorithms on various board games.
 9. Non zero sum games
 10. ScalaJS interface
 
-## Building on Linux (tested on Ubuntu 26.04 LTS)
+# Run from Built Jar
 
-### With SDKMAN
+This project can be run from the Jar uploaded in the [releases](https://github.com/lomination/games/releases) or in the [build workflow artifacts](https://github.com/lomination/games/actions).
+
+To do so, download the jar and run it as a usual jar using:
+
+```shell
+java -jar games-assembly-VERSION.jar
+```
+
+The Jar contain all the dependency of this project, including the Scala standard library, therefore only a Java runtime environment is required (JRE-21 recommanded).
+
+# Building from Sources on Linux (Tested on Ubuntu 26.04 LTS)
+
+## With SDKMAN
 
 To compile this project yourself, you need sbt and a JDK. Both can be installed with SDKMAN. Note that the installation process with SDKMAN requires `unzip` and `curl`.
 
@@ -45,7 +57,7 @@ You can then compile and run the project with:
 sbt run
 ```
 
-### With Coursier
+## With Coursier
 
 Alternatively, you can install the dependencies with Couriser, the Scala dedicated installation tool.
 
@@ -61,10 +73,10 @@ After that, you should be able to run the project with:
 sbt run
 ```
 
-## Contribution
+# Contribution
 
 Please feel free to contribute to this project by reporting bugs through the GitHub issues or by creating pull requests.
 
-## Licensing
+# Licensing
 
 This project is licensed under the GPL-3.0 license.
