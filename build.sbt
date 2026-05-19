@@ -8,7 +8,7 @@ lazy val root = project
     scalaVersion := scala3Version,
 
     assembly / mainClass := Some("lomination.games.main"),
-    assembly / assemblyJarName := "lomination.games",
+    assembly / assemblyJarName := s"${name.value}-${version.value}.jar",
     assembly / assemblyMergeStrategy := {
       case PathList("META-INF", "versions", _, "module-info.class") => MergeStrategy.discard
       case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.first

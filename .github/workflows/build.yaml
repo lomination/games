@@ -5,18 +5,33 @@ on:
   workflow_dispatch:
 
 jobs:
-
   build:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
-      - name: Setup scala
-        uses: coursier/setup-action@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Scala and SBT
+        uses: coursier/setup-action@v1
         with:
           jvm: temurin:1.21
           apps: sbt
+
       - name: Run tests
-        shell: bash
         run: sbt test
+
+      - name: Get project version
+        id: get_version
+        run: |
+          VERSION=$(sbt -batch -error "print version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create Jar
+        run: sbt assembly
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: games-assembly-${{ env.VERSION }}
+          path: ${{ github.workspace }}/target/scala-3.8.3/games-assembly-${{ env.VERSION }}.jar
