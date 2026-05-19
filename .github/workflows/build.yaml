@@ -24,8 +24,7 @@ jobs:
       - name: Get project version
         id: get_version
         run: |
-          VERSION=$(sbt -batch -error "print version")
-          echo "&$VERSION&"
+          VERSION=$(sbt -batch -error "print version" | tr -d '\n\r')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Jar
