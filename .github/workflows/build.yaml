@@ -24,11 +24,8 @@ jobs:
       - name: Get project version
         id: get_version
         run: |
-          RAW_VERSION=$(sbt -batch -error -no-colors "print version")
-          
-          # CLEAN_VERSION=$(echo "$RAW_VERSION" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | tr -d '\n\r ')
-          
-          echo "VERSION=$RAW_VERSION" >> $GITHUB_ENV
+          VERSION=$(sbt -batch -error -no-colors "print version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Jar
         run: sbt assembly
