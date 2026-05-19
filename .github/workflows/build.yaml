@@ -30,6 +30,11 @@ jobs:
       - name: Create Jar
         run: sbt assembly
 
+      - name: Debug Path String
+        run: |
+          echo "Expected filename: [games-${{ env.VERSION }}.jar]"
+          ls -R ${{ github.workspace }}/target/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
