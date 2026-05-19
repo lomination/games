@@ -34,4 +34,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: games-assembly-${{ env.VERSION }}
-          path: ${{ github.workspace }}/target/scala-3.8.3/games-assembly-${{ env.VERSION }}.jar
+          path: ${{ github.workspace }}/target/scala-3.8.3/games-${{ env.VERSION }}.jar
+          if-no-files-found: error
