@@ -24,16 +24,14 @@ jobs:
       - name: Get project version
         id: get_version
         run: |
-          VERSION=$(sbt -batch -error "print version" | tr -d '\n\r')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          RAW_VERSION=$(sbt -batch -error -no-colors "print version")
+          
+          # CLEAN_VERSION=$(echo "$RAW_VERSION" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | tr -d '\n\r ')
+          
+          echo "VERSION=$RAW_VERSION" >> $GITHUB_ENV
 
       - name: Create Jar
         run: sbt assembly
-
-      - name: Debug Path String
-        run: |
-          echo "Expected filename: [games-${{ env.VERSION }}.jar]"
-          ls -R ${{ github.workspace }}/target/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
