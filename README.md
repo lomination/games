@@ -7,13 +7,14 @@ The goal is to implement generic decision algorithms on various board games.
 1. ~~Basic zero sum games (tic tac toe, connect four), with minimax~~
 2. ~~Optimization for minimax: alphabeta~~
 3. ~~Improve console interface to select move~~
-4. Checkers, Reversi
-5. Variation on checkers (flying king, variation of board's dimmensions)
-6. Chess (with bounded depth)
-7. Random zero sum games solving algorithm: expectiminimax
-8. Backgammon
-9. Non zero sum games
-10. ScalaJS interface
+4. Menu
+5. Checkers, Reversi
+6. Variation on checkers (flying king, variation of board's dimmensions)
+7. Chess (with bounded depth)
+8. Random zero sum games solving algorithm: expectiminimax
+9. Backgammon
+10. Non zero sum games
+11. ScalaJS interface
 
 ## Run from Built Jar
 
