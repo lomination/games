@@ -13,8 +13,8 @@ jobs:
     needs: build
     uses: ./.github/workflows/check-format.yaml
   
-  # coverage:
-  #   name: Coverage
-  #   needs: build
-  #   secrets: inherit
-  #   uses: ./.github/workflows/coverage.yaml
+  coverage:
+    name: Coverage
+    needs: build
+    secrets: inherit
+    uses: ./.github/workflows/coverage.yaml
